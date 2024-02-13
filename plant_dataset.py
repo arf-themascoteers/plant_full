@@ -21,7 +21,7 @@ class PlantDataset(Dataset):
         columns_to_convert = ['Genotype', 'Treatment', 'Replication']
         df = pd.get_dummies(df, columns=columns_to_convert)
         self.image_files = list(df["File.Name"])
-        columns_to_drop = ['File.Name', 'Group', 'Day']
+        columns_to_drop = ['File.Name', 'Group', 'Day', 'is_train']
         df = df.drop(columns=columns_to_drop, axis=1)
         df = df.replace({False: 0, True: 1})
         self.data = torch.tensor(df.to_numpy(), dtype=torch.float32)

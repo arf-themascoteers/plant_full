@@ -17,7 +17,7 @@ class Plant_Combined(nn.Module):
 
     def forward(self, data, image):
         data = self.ann(data)
-        image = self.ann(image)
+        image = self.cnn(image)
         x = torch.hstack((data, image))
         return self.network(x)
 

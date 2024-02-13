@@ -1,11 +1,11 @@
 import torch
 from plant_dataset import PlantDataset
-from plant_ann import PlantANN
+from plant_combined import Plant_Combined
 from torch.utils.data import DataLoader
 
 
 def test():
-    model = PlantANN()
+    model = Plant_Combined()
     model.load_state_dict(torch.load('saved.pth'))
     model.eval()
     test_dataset = PlantDataset(is_train=False)
@@ -15,8 +15,8 @@ def test():
     total = 0
 
     with torch.no_grad():
-        for inputs, labels in test_dataloader:
-            outputs = model(inputs)
+        for inputs, images, labels in test_dataloader:
+            outputs = model(inputs, images)
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
